@@ -10,20 +10,20 @@ pipeline {
     string(name: 'TAG', defaultValue: 'develop-latest', description: 'Please change the image tag.')
     choice(name: 'ECR_REPO', choices: ['blue', 'green'], description: 'Please choose ECR repo you wish to build image for?')
     string(name: 'AWS_REGION', defaultValue: 'us-west-2', description: 'Please provide AWS region for ECR repo.')
-    string(name: 'MESSAGE', defaultValue: 'Welcome to DevOpsForAll ECS Demo for Blue Targets.1.0!', description: 'Please provide Message for deployment notes.')
+    string(name: 'MESSAGE', defaultValue: 'Welcome to DevOpsForAll EKS Demo for Blue Targets.1.0!', description: 'Please provide Message for deployment notes.')
 }
   stages {
    stage('Docker Image Build') {
       steps {
         script {
-          sh './image-build.sh'
+          sh './images/image-build.sh'
         }
       }
     }
    stage('Image Push Private Repo') {
       steps {
         script {
-          sh './image-push.sh'
+          sh './images/image-push.sh'
         }
       }
     }
