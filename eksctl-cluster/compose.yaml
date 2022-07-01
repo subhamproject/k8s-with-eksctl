@@ -1,0 +1,10 @@
+version: '3'
+services:
+  eksctl:
+     user: "${USERID}:${GROUPID}"
+     image: weaveworks/eksctl:v0.100.0
+     volumes:
+      - /etc/passwd:/etc/passwd:ro
+      - /etc/group:/etc/group:ro
+      - "${JENKINS_HOME}:${JENKINS_HOME}:rw"
+      - "${WORKSPACE}:${WORKSPACE}:rw"
