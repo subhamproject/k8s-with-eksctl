@@ -7,4 +7,4 @@ cd $(dirname $0)
 
 docker-compose -f compose.yaml \
     run --rm -w "$WORKSPACE" \
-    --name eks-${BUILD_NUMBER} eksctl create cluster -f eks-cluster.yaml
+    --name eks-${BUILD_NUMBER} eksctl create cluster -f eksctl-cluster/eks-cluster.yaml
