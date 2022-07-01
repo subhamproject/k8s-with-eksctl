@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: green-target
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      service: green-target
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  minReadySeconds: 5
+  template:
+    metadata:
+      labels:
+        service: green-target
+    spec:
+      containers:
+      - name: blue
+        image: 707015264015.dkr.ecr.us-west-2.amazonaws.com/green:green-v2
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80

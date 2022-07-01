@@ -1,0 +1,41 @@
+---
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+metadata:
+  name: my-eks-cluster
+  region: us-west-2
+  version: '1.21'
+  #version: auto
+availabilityZones:
+- us-west-2a
+- us-west-2b
+- us-west-2c
+iam:
+  withOIDC: true
+vpc:
+  cidr: 172.16.0.0/16
+managedNodeGroups:
+  - name: my-mng-new
+    instanceType: t3.small
+    spot: true
+    minSize: 0
+    desiredCapacity: 2
+    maxSize: 5
+    volumeSize: 30
+    updateConfig:
+      maxUnavailable: 1
+    ssh:
+      allow: true
+      publicKeyPath: Devops
+    labels: {role: worker}
+    tags:
+      nodegroup-role: worker
+    iam:
+      withAddonPolicies:
+        externalDNS: true
+        certManager: true
+        imageBuilder: true
+        autoScaler: true
+        ebs: true
+        efs: true
+        cloudWatch: true
