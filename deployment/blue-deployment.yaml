@@ -20,7 +20,13 @@ spec:
     spec:
       containers:
       - name: blue
-        image: 707015264015.dkr.ecr.us-west-2.amazonaws.com/blue:blue-v3
+        image: 707015264015.dkr.ecr.us-west-2.amazonaws.com/blue:blue-v1
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 80
+        resources:
+         limits:
+           cpu: 500m
+         requests:
+           cpu: 200m
+

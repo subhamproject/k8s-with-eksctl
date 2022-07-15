@@ -9,4 +9,4 @@ spec:
    name: blue-target
  minReplicas: 2
  maxReplicas: 100
- targetCPUUtilizationPercentage: 30
+ targetCPUUtilizationPercentage: 15

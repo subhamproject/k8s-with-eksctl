@@ -1,0 +1,17 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: eks-iam-test-admin-access
+spec:
+  template:
+    metadata:
+      labels:
+        app: eks-iam-test-admin-acess
+    spec:
+      serviceAccountName: admin
+      containers:
+      - name: eks-iam-test-admin-access
+        image: amazon/aws-cli:latest
+        args: ["--region", "us-west-2", "ec2", "run-instances", "--image-id", "ami-098e42ae54c764c35", "--instance-type", "t2.micro"]
+      restartPolicy: Never
+  backoffLimit: 0

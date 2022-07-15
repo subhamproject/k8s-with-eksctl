@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pdb-demo
+  labels:
+    app: pdb-demo
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: pdb-demo
+  template:
+    metadata:
+      labels:
+        app: pdb-demo
+    spec:
+      containers:
+      - name: pdb-demo
+        image: k8s.gcr.io/hpa-example
+        ports:
+        - containerPort: 80

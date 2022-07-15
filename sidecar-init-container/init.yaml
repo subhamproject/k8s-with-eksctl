@@ -1,0 +1,46 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: init-container-example
+  labels:
+    app: init-container-example
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: init-container-example
+  template:
+    metadata:
+      labels:
+        app: init-container-example
+    spec:
+      initContainers:
+        - name: git-clone
+          image: bitnami/git
+          workingDir: /tmp
+          command: ["git","clone","https://github.com/subhamproject/ci-nexus.git"]
+          volumeMounts:
+            - mountPath: /tmp
+              name: init-container-example
+        - name: maven-package
+          image: maven:3.5.4
+          workingDir: /tmp/ci-nexus
+          command: ["mvn","package"]
+          volumeMounts:
+            - mountPath: /tmp
+              name: init-container-example
+      containers:
+        - name: main-container
+          image: maven:3.5.4
+          workingDir: /tmp/ci-nexus
+          command: 
+           - "/bin/sh"
+           - "-c" 
+           - "while true; do java -jar ./target/jb-hello-world-maven-0.2.0.jar; sleep 600; done"
+          volumeMounts:
+            - mountPath: /tmp
+              name: init-container-example
+      volumes:
+        - emptyDir: {}
+          name: init-container-example

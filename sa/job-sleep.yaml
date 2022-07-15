@@ -1,0 +1,17 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: eks-sleep-job
+spec:
+  template:
+    metadata:
+      labels:
+        app: eks-sleep-job
+    spec:
+      serviceAccountName: s3-fullacess
+      containers:
+      - name: eks-sleep-job
+        image: alpine
+        args: ["sleep","36000"]
+      restartPolicy: Never
+  backoffLimit: 0

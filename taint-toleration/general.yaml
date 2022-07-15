@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deploy-without-taint
+  labels:
+    app: deploy-without-taint
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: deploy-without-taint
+  template:
+    metadata:
+      labels:
+        app: deploy-without-taint
+    spec:
+      containers:
+      - name: deploy-without-taint
+        image: k8s.gcr.io/hpa-example
+        ports:
+        - containerPort: 80

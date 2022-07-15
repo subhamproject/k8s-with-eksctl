@@ -1,7 +1,8 @@
 #!/bin/bash
 
-CLUSTER_NAME=my-eks-cluster
-NG_NAME=my-mng-new
+CLUSTER_NAME=demo-eks-cluster
+#NG_NAME=my-ng-new
+NG_NAME=my-ng
 NG_STACK_NAME=eksctl-$CLUSTER_NAME-nodegroup-$NG_NAME
 
 [ ! -f iam_policy.json ] && curl -o iam_policy.json https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.2.0/docs/install/iam_policy_v1_to_v2_additional.json

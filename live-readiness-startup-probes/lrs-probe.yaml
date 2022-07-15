@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lrs-demo
+  labels:
+    service: lrs-demo
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 2
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      service: lrs-demo
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+  minReadySeconds: 5
+  template:
+    metadata:
+      labels:
+        service: lrs-demo
+    spec:
+      containers:
+      - name: blue
+        image: k8s.gcr.io/hpa-example
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80
+        resources:
+         limits:
+           cpu: 500m
+           memory: 500Mi
+         requests:
+            cpu: 50m
+            memory: 100Mi        
+        readinessProbe:
+           tcpSocket:
+            host:
+            port: 80
+           initialDelaySeconds: 15
+           periodSeconds: 10
+           timeoutSeconds: 10
+           successThreshold: 1
+           failureThreshold: 1
+        livenessProbe:
+           tcpSocket:
+            host:
+            port: 80
+           initialDelaySeconds: 15
+           periodSeconds: 10
+           timeoutSeconds: 10
+           successThreshold: 1
+           failureThreshold: 1
+        startupProbe:
+           tcpSocket:
+            host:
+            port: 80
+           initialDelaySeconds: 15
+           periodSeconds: 5
+           timeoutSeconds: 10
+           successThreshold: 1
+           failureThreshold: 1
+      terminationGracePeriodSeconds: 30

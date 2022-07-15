@@ -1,0 +1,25 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: demo-cicd
+  labels:
+    app: cicd
+rules:
+  - apiGroups:
+      - ''
+      - apps
+    resources:
+      - pods/log
+      - deployments
+      - deployments/rollback
+      - deployments/scale
+      - replicasets
+      - jobs
+    verbs:
+      - get
+      - list
+      - update
+      - create
+      - delete
+      - patch
+

@@ -1,0 +1,24 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: scale-up-job
+spec:
+  schedule: "* * * * *" 
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+          - name: kubectl
+            image: bitnami/kubectl:1.22
+            imagePullPolicy: IfNotPresent
+            args: 
+              - scale
+              - deployment
+              - -l
+              - service=blue-target 
+              - --replicas=1
+          serviceAccountName: cicd

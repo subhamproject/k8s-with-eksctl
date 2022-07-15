@@ -1,0 +1,17 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: eks-iam-test-s3-full
+spec:
+  template:
+    metadata:
+      labels:
+        app: eks-iam-test-s3-full
+    spec:
+      serviceAccountName: s3-fullacess
+      containers:
+      - name: eks-iam-test-full
+        image: amazon/aws-cli:latest
+        args: ["s3api", "create-bucket", "--bucket", "eks-iam-test-s3-full-testing", "--region", "us-west-2", "--create-bucket-configuration", "LocationConstraint=us-west-2"]
+      restartPolicy: Never
+  backoffLimit: 0

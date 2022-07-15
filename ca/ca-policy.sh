@@ -1,10 +1,9 @@
 #!/bin/bash
 
-CLUSTER_NAME=my-eks-cluster
-NG_NAME=my-mng-new
+CLUSTER_NAME=demo-eks-cluster
+NG_NAME=my-ng-new
+#NG_NAME=my-ng
 NG_STACK_NAME=eksctl-$CLUSTER_NAME-nodegroup-$NG_NAME
-
-export AWS_DEFAULT_REGION=us-east-1
 
 
 ROLE=$(aws cloudformation list-stack-resources  --stack-name $NG_STACK_NAME | jq -r '.[] | .[] | select(.LogicalResourceId == "NodeInstanceRole").PhysicalResourceId')

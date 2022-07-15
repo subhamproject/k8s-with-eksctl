@@ -1,0 +1,16 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: eks-iam-test-terminate-instance-without-sa
+spec:
+  template:
+    metadata:
+      labels:
+        app: eks-iam-test-terminate-instance-without-sa
+    spec:
+      containers:
+      - name: eks-iam-test-terminate-instance-without-sa
+        image: amazon/aws-cli:latest
+        args: [ "ec2", "terminate-instances", "--instance-ids", "i-04955aaad48d21618"]
+      restartPolicy: Never
+  backoffLimit: 0

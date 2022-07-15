@@ -1,0 +1,9 @@
+kind: Service
+metadata:
+  name: pdb-service
+spec:
+  selector:
+    app: pdb-demo
+  ports:
+    - port: 80
+      targetPort: 80
