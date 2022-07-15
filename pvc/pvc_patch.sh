@@ -9,7 +9,7 @@ kubectl patch sc gp2 -p '{"allowVolumeExpansion": true}'
 
 k get pv
 
-kubectl get pvc pet2cattle-data -o yaml | sed 's/storage: 35Gi/storage: 40Gi/g' | kubectl apply -f -
+kubectl get pvc slow -o yaml | sed 's/storage: 1Gi/storage: 2Gi/g' | kubectl apply -f -
 
 k get pv
 
