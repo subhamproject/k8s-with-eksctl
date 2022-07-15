@@ -82,8 +82,8 @@ roleRef:
 EOF
 
 
-grep '$USER_NAME' ~/.aws/config > /dev/null 2>&1 || aws configure  --profile $USER_NAME set aws_access_key_id $(jq -r .AccessKey.AccessKeyId /tmp/${USER_NAME}-ro.json) && \
-                                            aws configure  --profile $USER_NAME set aws_secret_access_key $(jq -r .AccessKey.SecretAccessKey /tmp/${USER_NAME}-ro.json) && \
+grep '$USER_NAME' ~/.aws/config > /dev/null 2>&1 || aws configure  --profile $USER_NAME set aws_access_key_id $(jq -r .AccessKey.AccessKeyId /tmp/${USER_NAME}.json) && \
+                                            aws configure  --profile $USER_NAME set aws_secret_access_key $(jq -r .AccessKey.SecretAccessKey /tmp/${USER_NAME}.json) && \
                                             aws configure  --profile $USER_NAME set region us-west-2
 export AWS_PROFILE=$USER_NAME
 export KUBECONFIG=/tmp/kubeconfig-dev && aws eks --profile $USER_NAME update-kubeconfig --name $CLUSTER_NAME
