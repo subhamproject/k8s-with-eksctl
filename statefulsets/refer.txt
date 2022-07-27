@@ -1,0 +1,2 @@
+https://akomljen.com/kubernetes-persistent-volumes-with-deployment-and-statefulset/
+https://www.eksworkshop.com/beginner/170_statefulset/testscaling/

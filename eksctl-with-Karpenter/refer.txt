@@ -1,0 +1,9 @@
+https://karpenter.sh/v0.13.2/getting-started/getting-started-with-eksctl/
+
+https://karpenter.sh/v0.10.1/provisioner/
+
+https://ec2spotworkshops.com/karpenter/040_karpenter/set_up_the_provisioner.html
+
+https://aws.amazon.com/blogs/aws/introducing-karpenter-an-open-source-high-performance-kubernetes-cluster-autoscaler/
+
+https://karpenter.sh/v0.13.2/getting-started/getting-started-with-eksctl/

@@ -1,0 +1,1 @@
+https://www.kubermatic.com/blog/keeping-the-state-of-apps-part-3-introduction-to-configmaps/
