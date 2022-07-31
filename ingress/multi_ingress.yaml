@@ -1,0 +1,36 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: "blue-green-ingress"
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS":443}]'
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-west-2:707015264015:certificate/797b1101-b27a-4062-9714-1881330a5361
+    alb.ingress.kubernetes.io/actions.ssl-redirect: '{"Type": "redirect", "RedirectConfig": { "Protocol": "HTTPS", "Port": "443", "StatusCode": "HTTP_301"}}'
+    alb.ingress.kubernetes.io/group.name: my-group
+  labels:
+    service: blue-green-ingress
+spec:
+  rules:
+    - host: blue.test.devopsforall.tk
+      http:
+       paths:
+       - path: /
+         pathType: Prefix
+         backend:
+          service:
+            name: blue-service
+            port:
+              number: 80
+    - host: green.test.devopsforall.tk
+      http:
+       paths:
+       - path: /
+         pathType: Prefix
+         backend:
+          service:
+            name: green-service
+            port:
+              number: 80

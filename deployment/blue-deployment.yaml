@@ -1,12 +1,12 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: blue-target
+  name: black-target
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      service: blue-target
+      service: black-target
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -16,17 +16,11 @@ spec:
   template:
     metadata:
       labels:
-        service: blue-target
+        service: black-target
     spec:
       containers:
-      - name: blue
+      - name: black
         image: 707015264015.dkr.ecr.us-west-2.amazonaws.com/blue:blue-v1
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 80
-        resources:
-         limits:
-           cpu: 500m
-         requests:
-           cpu: 200m
-

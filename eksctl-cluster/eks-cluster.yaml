@@ -2,14 +2,10 @@
 apiVersion: eksctl.io/v1alpha5
 kind: ClusterConfig
 metadata:
-  name: demo-eks-cluster
+  name: eks-cluster
   region: us-west-2
   #version: '1.21'
   version: auto
-availabilityZones:
-- us-west-2a
-- us-west-2b
-- us-west-2c
 iam:
   withOIDC: true
 vpc:
@@ -18,7 +14,7 @@ cloudWatch:
   clusterLogging:
     enableTypes: ["authenticator"]
 managedNodeGroups:
-  - name: my-ng-new
+  - name: ng-new
     instanceType: t3.small
     spot: true
     minSize: 0

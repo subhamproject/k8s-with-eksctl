@@ -6,6 +6,10 @@ metadata:
     kubernetes.io/ingress.class: alb
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS":443}]'
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-west-2:707015264015:certificate/37f79a30-a235-4aa4-be57-cd411cd81ba1
+    alb.ingress.kubernetes.io/actions.ssl-redirect: '{"Type": "redirect", "RedirectConfig": { "Protocol": "HTTPS", "Port": "443", "StatusCode": "HTTP_301"}}'
+    external-dns.alpha.kubernetes.io/hostname: demo.devopsforall.tk
     alb.ingress.kubernetes.io/actions.blue-green: |
       {
         "type":"forward",
@@ -14,12 +18,12 @@ metadata:
             {
               "serviceName":"blue-service",
               "servicePort":"80",
-              "weight":0
+              "weight":10
             },
             {
               "serviceName":"green-service",
               "servicePort":"80",
-              "weight":100
+              "weight":90
             }
           ]
         }
