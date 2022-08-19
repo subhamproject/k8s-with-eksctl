@@ -5,7 +5,7 @@
             "Action": [
                 "es:*"
             ],
-            "Resource": "arn:aws:es:us-east-1:707015264015:domain/k8s-logging/*",
+            "Resource": "arn:aws:es:us-west-2:707015264015:domain/k8s-log/*",
             "Effect": "Allow"
         }
     ]

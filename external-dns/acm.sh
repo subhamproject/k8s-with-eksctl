@@ -9,8 +9,8 @@ DOMAIN=${1:-demo.devopsforall.tk}
 # Requests a certificate based on the provided domain name from ACM.
 ################################################################################
 ACM_CERTIFICATE_ARN=$(aws acm request-certificate \
---domain-name "$1" \
---subject-alternative-names "*.$1" \
+--domain-name "$DOMAIN" \
+--subject-alternative-names "*.$DOMAIN" \
 --validation-method DNS \
 --query CertificateArn \
 --output text)
@@ -25,12 +25,12 @@ echo "[ACM]          Certificate ARN: $ACM_CERTIFICATE_ARN"
 
 VALIDATION_NAME="$(aws acm describe-certificate \
 --certificate-arn "$ACM_CERTIFICATE_ARN" \
---query "Certificate.DomainValidationOptions[?DomainName=='$1'].ResourceRecord.Name" \
+--query "Certificate.DomainValidationOptions[?DomainName=='$DOMAIN'].ResourceRecord.Name" \
 --output text)"
  
 VALIDATION_VALUE="$(aws acm describe-certificate \
 --certificate-arn "$ACM_CERTIFICATE_ARN" \
---query "Certificate.DomainValidationOptions[?DomainName=='$1'].ResourceRecord.Value" \
+--query "Certificate.DomainValidationOptions[?DomainName=='$DOMAIN'].ResourceRecord.Value" \
 --output text)"
  
 echo "[ACM]          Certificate validation record: $VALIDATION_NAME CNAME $VALIDATION_VALUE"
@@ -41,8 +41,8 @@ echo "[ACM]          Certificate validation record: $VALIDATION_NAME CNAME $VALI
 ################################################################################
 
 R53_HOSTED_ZONE_ID="$(aws route53 list-hosted-zones-by-name \
---dns-name "$1" \
---query "HostedZones[?Name=='$1.'].Id" \
+--dns-name "$DOMAIN" \
+--query "HostedZones[?Name=='$DOMAIN.'].Id" \
 --output text)"
  
 R53_HOSTED_ZONE=${R53_HOSTED_ZONE_ID##*/}

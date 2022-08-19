@@ -1,6 +1,9 @@
 #!/bin/bash
 
-VERSION="6.8" #6.3
+
+export AWS_REGION=$(aws configure get region)
+
+VERSION="6.3" #6.8
 
 MY_IP=$(curl -qs https://checkip.amazonaws.com)
 

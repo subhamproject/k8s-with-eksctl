@@ -1,7 +1,8 @@
 #!/bin/bash
 
+export AWS_REGION=$(aws configure get region)
 
-ES_DOMAIN_NAME="k8s-log"
+ES_DOMAIN_NAME=$(aws es list-domain-names --region $AWS_REGION|jq '.DomainNames[].DomainName'|sed 's|"||g')
 
 if [[ $(aws es describe-elasticsearch-domain --domain-name ${ES_DOMAIN_NAME} --output text --query "DomainStatus.Endpoint") == "None" ]];then
 echo "Please wait for ELK cluster to be up - it may take a while - Please check in AWS console and try again after sometime" ; exit 1

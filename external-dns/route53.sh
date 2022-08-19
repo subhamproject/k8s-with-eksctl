@@ -1,5 +1,8 @@
 #!/bin/bash
 
+export AWS_REGION=$(aws configure get region)
+
+
 set -e
 
 if [ $# != 3 ] || [ "$1" = "" ] || [ "$2" = "" ] || [ "$3" = "" ]; then
@@ -11,6 +14,8 @@ if [ $# != 3 ] || [ "$1" = "" ] || [ "$2" = "" ] || [ "$3" = "" ]; then
   \t sh ./issue-acm-certificate.sh example.com sub.example.com"
 	exit
 fi
+
+export AWS_REGION=$(aws configure get region)
 
 HOSTED_DOMAIN=$1
 TARGET_DOMAIN=$2

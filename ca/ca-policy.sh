@@ -1,8 +1,9 @@
 #!/bin/bash
 
-CLUSTER_NAME=demo-eks-cluster
-NG_NAME=my-ng-new
-#NG_NAME=my-ng
+CLUSTER_NAME=$(eksctl get cluster|sed '1d'|awk '{print $1}')
+
+
+NG_NAME=ng-new
 NG_STACK_NAME=eksctl-$CLUSTER_NAME-nodegroup-$NG_NAME
 
 

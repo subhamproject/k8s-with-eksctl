@@ -2,7 +2,7 @@
 
 export KARPENTER_VERSION=v0.13.2
 
-export CLUSTER_NAME="${USER}-karpenter-demo"
+export CLUSTER_NAME="test-karpenter-demo"
 export AWS_DEFAULT_REGION="us-east-1"
 export AWS_ACCOUNT_ID="$(aws sts get-caller-identity --query Account --output text)"
 

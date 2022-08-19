@@ -7,7 +7,7 @@ metadata:
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: ip
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS":443}]'
-    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-west-2:707015264015:certificate/797b1101-b27a-4062-9714-1881330a5361
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-west-2:707015264015:certificate/37b79a60-d3b5-40be-ba1c-5308de057a81
     alb.ingress.kubernetes.io/ssl-redirect: '443'
     alb.ingress.kubernetes.io/actions.ssl-redirect: '{"Type": "redirect", "RedirectConfig": { "Protocol": "HTTPS", "Port": "443", "StatusCode": "HTTP_301"}}'
     alb.ingress.kubernetes.io/group.name: my-group
@@ -15,7 +15,7 @@ metadata:
     service: black-red-ingress
 spec:
   rules:
-    - host: black.test.devopsforall.tk
+    - host: black.devopsforall.tk
       http:
        paths:
        - path: /
@@ -25,7 +25,7 @@ spec:
             name: black-service
             port:
               number: 80
-    - host: red.test.devopsforall.tk
+    - host: red.devopsforall.tk
       http:
        paths:
        - path: /

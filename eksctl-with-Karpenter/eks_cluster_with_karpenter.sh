@@ -1,9 +1,10 @@
 #!/bin/bash
 
+USER="test"
 export KARPENTER_VERSION=v0.13.2
 
 export CLUSTER_NAME="${USER}-karpenter-demo"
-export AWS_DEFAULT_REGION="us-east-1"
+export AWS_DEFAULT_REGION="us-west-2"
 export AWS_ACCOUNT_ID="$(aws sts get-caller-identity --query Account --output text)"
 
 echo $KARPENTER_VERSION $CLUSTER_NAME $AWS_DEFAULT_REGION $AWS_ACCOUNT_ID
@@ -31,7 +32,7 @@ managedNodeGroups:
     volumeSize: 30
     ssh:
       allow: true
-      publicKeyPath: K8S
+      publicKeyPath: Devops
     labels: {role: worker}
     tags:
       nodegroup-role: worker

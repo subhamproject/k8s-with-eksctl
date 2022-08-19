@@ -75,11 +75,11 @@ data:
     [OUTPUT]
         Name            es
         Match           *
-        Host            search-k8s-logging-4cuss42pjkfl65arr3tno545qi.us-east-1.es.amazonaws.com
+        Host            search-k8s-log-zdfihcdbfgj7gdebsycsl6fbvy.us-west-2.es.amazonaws.com
         Port            443
         TLS             On
         AWS_Auth        On
-        AWS_Region      us-east-1
+        AWS_Region      us-west-2
         Retry_Limit     6
 
   parsers.conf: |

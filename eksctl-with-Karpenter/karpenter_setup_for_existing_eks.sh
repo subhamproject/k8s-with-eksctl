@@ -1,14 +1,16 @@
 #!/bin/bash
 
+export AWS_REGION=$(aws configure get region)
+
 export CLUSTER_NAME=$(eksctl get clusters -o json | jq -r '.[0].Name')
 export ACCOUNT_ID=$(aws sts get-caller-identity --output text --query Account)
-export AWS_REGION=$(aws configure get region)
 
 
 SUBNET_IDS=$(aws cloudformation describe-stacks \
     --stack-name eksctl-${CLUSTER_NAME}-cluster \
     --query 'Stacks[].Outputs[?OutputKey==`SubnetsPrivate`].OutputValue' \
     --output text)
+
 aws ec2 create-tags \
     --resources $(echo $SUBNET_IDS | tr ',' '\n') \
     --tags Key="kubernetes.io/cluster/${CLUSTER_NAME}",Value=
@@ -23,7 +25,7 @@ export KARPENTER_VERSION=v0.7.3
 
 curl -fsSL https://karpenter.sh/"${KARPENTER_VERSION}"/getting-started/getting-started-with-eksctl/cloudformation.yaml  > $TEMPOUT \
 && aws cloudformation deploy \
-  --stack-name Karpenter-${CLUSTER_NAME} \
+  --stack-name Karpenters-${CLUSTER_NAME} \
   --template-file ${TEMPOUT} \
   --capabilities CAPABILITY_NAMED_IAM \
   --parameter-overrides ClusterName=${CLUSTER_NAME}
@@ -47,7 +49,7 @@ eksctl create iamserviceaccount \
 helm repo add karpenter https://charts.karpenter.sh
 helm repo update
 helm upgrade --install karpenter karpenter/karpenter --namespace karpenter \
-  --create-namespace --set serviceAccount.create=false --version 0.13.2 \
+  --create-namespace --set serviceAccount.create=false --version 0.5.1 \
   --set controller.clusterName=${CLUSTER_NAME} \
   --set controller.clusterEndpoint=$(aws eks describe-cluster --name ${CLUSTER_NAME} --query "cluster.endpoint" --output json) \
   --set defaultProvisioner.create=false \
@@ -67,6 +69,7 @@ spec:
   limits:
     resources:
       cpu: 1000
+      memory: 1000Gi
   provider:
     subnetSelector:
       karpenter.sh/discovery: ${CLUSTER_NAME}

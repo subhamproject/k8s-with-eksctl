@@ -1,9 +1,9 @@
 #!/bin/bash
-export AWS_DEFAULT_REGION=us-west-2
 
-CLUSTER_NAME=eks-cluster
-#NG_NAME=my-ng-new
-NG_NAME=ng-new
+export AWS_REGION=$(aws configure get region)
+
+CLUSTER_NAME=$(eksctl get cluster|sed '1d'|awk '{print $1}')
+NG_NAME=${CLUSTER_NAME}-ng-new
 NG_STACK_NAME=eksctl-$CLUSTER_NAME-nodegroup-$NG_NAME
 
 [ ! -f iam_policy.json ] && curl -o iam_policy.json https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.2.0/docs/install/iam_policy_v1_to_v2_additional.json

@@ -1,5 +1,8 @@
 #!/bin/bash
 
+export AWS_REGION=$(aws configure get region)
+
+
 #route53 policy
 cat << EOF > route_53_policy.json
 {
@@ -30,7 +33,7 @@ EOF
 
 export AWS_DEFAULT_REGION=us-west-2
 
-REGION="us-west-2"
+REGION=$(aws configure get region)
 DOMAIN="devopsforall.tk"
 
 CLUSTER=$(aws eks list-clusters --region $REGION --query clusters[0] --output text)

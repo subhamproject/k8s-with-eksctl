@@ -1,5 +1,7 @@
 #!/bin/bash
 
+export AWS_REGION=$(aws configure get region)
+
 CLUSTER=eks-cluster
 
 eksctl utils associate-iam-oidc-provider  --cluster=$CLUSTER --approve

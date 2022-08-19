@@ -4,8 +4,8 @@ kind: ClusterConfig
 metadata:
   name: eks-cluster
   region: us-west-2
-  #version: '1.21'
-  version: auto
+  version: '1.21'
+  #version: auto
 iam:
   withOIDC: true
 vpc:
