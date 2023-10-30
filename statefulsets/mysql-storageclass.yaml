@@ -29,3 +29,22 @@ allowVolumeExpansion: true
 reclaimPolicy: Delete
 mountOptions:
 - debug
+
+
+#####################################
+
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: mysql
+provisioner: ebs.csi.aws.com # Amazon EBS CSI driver
+parameters:
+  type: gp3
+  fsType: ext4
+  throughput: '500'
+  encrypted: 'true' # EBS volumes will always be encrypted by default
+volumeBindingMode: WaitForFirstConsumer # EBS volumes are AZ specific
+allowVolumeExpansion: true
+reclaimPolicy: Delete
+mountOptions:
+- debug
